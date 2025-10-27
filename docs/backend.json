@@ -331,6 +331,92 @@
         "horseId",
         "analysisDate"
       ]
+    },
+    "Landingpage": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Landingpage",
+      "type": "object",
+      "description": "Represents the configuration and content for a Profi's public landing page.",
+      "properties": {
+        "profiId": {
+          "type": "string",
+          "description": "The UID of the Profi this landing page belongs to."
+        },
+        "headline": {
+          "type": "string",
+          "description": "Main headline of the landing page."
+        },
+        "aboutText": {
+          "type": "string",
+          "description": "Text block to describe the Profi and their services."
+        },
+        "newCustomerStatus": {
+          "type": "string",
+          "description": "Status for accepting new customers.",
+          "enum": [
+            "accepting",
+            "limited",
+            "closed"
+          ]
+        }
+      },
+      "required": [
+        "profiId",
+        "newCustomerStatus"
+      ]
+    },
+    "Inquiry": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Inquiry",
+      "type": "object",
+      "description": "Represents a new customer inquiry from the landing page contact form.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the inquiry."
+        },
+        "profiId": {
+          "type": "string",
+          "description": "The UID of the Profi who received the inquiry."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the person making the inquiry."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email of the person making the inquiry.",
+          "format": "email"
+        },
+        "message": {
+          "type": "string",
+          "description": "The content of the inquiry message."
+        },
+        "receivedAt": {
+          "type": "string",
+          "description": "Timestamp when the inquiry was received.",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "Current status of the inquiry.",
+          "enum": [
+            "new",
+            "in-progress",
+            "customer",
+            "archived"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "profiId",
+        "name",
+        "email",
+        "message",
+        "receivedAt",
+        "status"
+      ]
     }
   },
   "auth": {
@@ -491,8 +577,44 @@
             }
           ]
         }
+      },
+      {
+        "path": "/profis/{profiId}/landingpage",
+        "definition": {
+          "entityName": "Landingpage",
+          "schema": {
+            "$ref": "#/backend/entities/Landingpage"
+          },
+          "description": "Stores the configuration for the Profi's public landing page. There is only one document per Profi.",
+          "params": [
+            {
+              "name": "profiId",
+              "description": "The unique identifier of the Profi (Hufbearbeiter)."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/profis/{profiId}/inquiries/{inquiryId}",
+        "definition": {
+          "entityName": "Inquiry",
+          "schema": {
+            "$ref": "#/backend/entities/Inquiry"
+          },
+          "description": "Stores inquiries submitted through the Profi's public landing page.",
+          "params": [
+            {
+              "name": "profiId",
+              "description": "The unique identifier of the Profi (Hufbearbeiter) who received the inquiry."
+            },
+            {
+              "name": "inquiryId",
+              "description": "The unique identifier of the inquiry."
+            }
+          ]
+        }
       }
     ],
-    "reasoning": "The Firestore structure is designed to ensure data isolation and secure access control. Each Profi (Hufbearbeiter) has their own top-level collection for Customers, Horses, Partners and Appointments. This design achieves Authorization Independence by avoiding `get()` calls in security rules. Access control is enforced at the collection level, ensuring that one Profi cannot access another's data. Data for each Profi is segregated under their `profiId`, which corresponds to their Firebase Auth UID, ensuring that list operations are secure (QAPs).  The `Consents` subcollection ensures data sharing with Partners is controlled by the Customer. The structure is optimized for a 1:N relationship between `Profi` and `Customer`, `Profi` and `Horse`, `Customer` and `Horse`, and `Profi` and `Appointment`."
+    "reasoning": "The Firestore structure is designed to ensure data isolation and secure access control. Each Profi (Hufbearbeiter) has their own top-level collection for Customers, Horses, Partners and Appointments. This design achieves Authorization Independence by avoiding `get()` calls in security rules. Access control is enforced at the collection level, ensuring that one Profi cannot access another's data. Data for each Profi is segregated under their `profiId`, which corresponds to their Firebase Auth UID, ensuring that list operations are secure (QAPs).  The `Consents` subcollection ensures data sharing with Partners is controlled by the Customer. The structure is optimized for a 1:N relationship between `Profi` and `Customer`, `Profi` and `Horse`, `Customer` and `Horse`, and `Profi` and `Appointment`. The new 'landingpage' and 'inquiries' collections are also placed under the Profi's top-level collection to maintain data segregation."
   }
 }

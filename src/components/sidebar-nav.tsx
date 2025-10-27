@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Users, Calendar, ClipboardCheck, Sparkles } from "lucide-react";
+import { Home, Users, Calendar, ClipboardCheck, Sparkles, Star, MessageSquareQuote } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import {
@@ -16,6 +16,8 @@ const navItems = [
   { href: "/kunden", label: "Kunden", icon: Users },
   { href: "/kalender", label: "Kalender", icon: Calendar },
   { href: "/analyse", label: "Analyse", icon: ClipboardCheck },
+  { href: "/meine-seite", label: "Meine Seite", icon: Star },
+  { href: "/anfragen", label: "Anfragen", icon: MessageSquareQuote },
 ];
 
 export function SidebarNav() {
