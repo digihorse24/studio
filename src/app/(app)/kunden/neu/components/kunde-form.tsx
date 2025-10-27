@@ -8,7 +8,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "@/components/ui/input";
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { Loader2 } from 'lucide-react';
 import { addKunde } from '../actions';
 
@@ -22,7 +22,7 @@ const formSchema = z.object({
 export function KundeForm() {
   const { toast } = useToast();
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -34,25 +34,23 @@ export function KundeForm() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsLoading(true);
-    try {
-      await addKunde(values);
-      toast({
-        title: "Kunde erfolgreich erstellt",
-        description: `${values.name} wurde zu Ihren Kunden hinzugefügt.`,
-      });
-      router.push('/kunden');
-      router.refresh();
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Fehler",
-        description: "Der Kunde konnte nicht erstellt werden.",
-      });
-    } finally {
-      setIsLoading(false);
-    }
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    startTransition(async () => {
+      try {
+        await addKunde(values);
+        toast({
+          title: "Kunde erfolgreich erstellt",
+          description: `${values.name} wurde zu Ihren Kunden hinzugefügt.`,
+        });
+        router.push('/kunden');
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "Fehler",
+          description: "Der Kunde konnte nicht erstellt werden.",
+        });
+      }
+    });
   }
 
   return (
@@ -113,8 +111,8 @@ export function KundeForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={isLoading} className="w-full">
-          {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Kunde speichern"}
+        <Button type="submit" disabled={isPending} className="w-full">
+          {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Kunde speichern"}
         </Button>
       </form>
     </Form>

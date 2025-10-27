@@ -3,6 +3,9 @@
 import { generateKid } from '@/lib/ids';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { mockKunden } from '@/lib/data';
+import { Kunde } from '@/lib/types';
+import { revalidatePath } from 'next/cache';
 
 // This is a temporary solution to simulate a database.
 // In a real application, you would use a database like Firestore.
@@ -46,6 +49,8 @@ export async function addKunde(data: { name: string; email: string; phone: strin
     } else {
         throw new Error("Could not find mockKunden array in data.ts.");
     }
+    
+    revalidatePath('/kunden');
 
-    return newKunde;
+    return { ...newKunde, pferde_ids: [] };
 }
