@@ -3,7 +3,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Users, Calendar, ClipboardCheck, MessageSquareQuote, Settings, Horse, Handshake, BarChart2, Star, Box, Package, Layers, Repeat, Receipt, Clock, Bell, MessageSquareHeart, User, Cog } from "lucide-react";
+import { Home, Users, Calendar, ClipboardCheck, MessageSquareQuote, Settings, Handshake, BarChart2, Star, Box, Package, Layers, Repeat, Receipt, Clock, Bell, MessageSquareHeart, User, Cog } from "lucide-react";
+import { HorseshoeIcon } from "@/components/logo";
 
 import { cn } from "@/lib/utils";
 import {
@@ -19,7 +20,7 @@ import React from "react";
 const mainNavItems = [
   { href: "/dashboard", label: "Dashboard", icon: Home },
   { href: "/kunden", label: "Kunden", icon: Users },
-  { href: "/pferde", label: "Pferde", icon: Horse },
+  { href: "/pferde", label: "Pferde", icon: HorseshoeIcon },
   { href: "/partner", label: "Partner", icon: Handshake },
   { href: "/kalender", label: "Kalender", icon: Calendar },
   { href: "/analyse", label: "HufAnalyse Pro", icon: ClipboardCheck },

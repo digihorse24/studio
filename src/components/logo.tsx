@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 // Using an SVG for the horseshoe icon to avoid adding a new library
-const HorseshoeIcon = (props: React.SVGProps<SVGSVGElement>) => (
+export const HorseshoeIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg 
         xmlns="http://www.w3.org/2000/svg" 
         width="1em" 
