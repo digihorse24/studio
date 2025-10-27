@@ -1,9 +1,31 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { MoveRight } from 'lucide-react';
 import Logo from '@/components/logo';
+import { FirebaseClientProvider, useUser } from '@/firebase';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
-export default function Home() {
+function LandingContent() {
+  const { user, isUserLoading } = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isUserLoading && user) {
+      router.push('/dashboard');
+    }
+  }, [user, isUserLoading, router]);
+
+  if (isUserLoading || user) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center">
+        <p>Laden...</p>
+      </div>
+    );
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-background p-8">
       <div className="text-center max-w-2xl mx-auto">
@@ -16,9 +38,14 @@ export default function Home() {
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
           <Button asChild size="lg">
-            <Link href="/dashboard">
-              Zum Dashboard
+            <Link href="/login">
+              Jetzt Anmelden
               <MoveRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
+           <Button asChild size="lg" variant="outline">
+            <Link href="/signup">
+              Registrieren
             </Link>
           </Button>
         </div>
@@ -30,4 +57,13 @@ export default function Home() {
       </footer>
     </main>
   );
+}
+
+
+export default function Home() {
+  return (
+    <FirebaseClientProvider>
+      <LandingContent />
+    </FirebaseClientProvider>
+  )
 }

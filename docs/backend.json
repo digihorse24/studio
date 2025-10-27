@@ -60,11 +60,11 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Profi",
       "type": "object",
-      "description": "Represents a Hufbearbeiter (hoof care professional) in the HufManager application.",
+      "description": "Represents a Hufbearbeiter (hoof care professional) in the HufManager application. This is also the Firebase User.",
       "properties": {
-        "id": {
+        "uid": {
           "type": "string",
-          "description": "Unique identifier for the Profi."
+          "description": "Firebase Authentication User ID."
         },
         "prid": {
           "type": "string",
@@ -101,7 +101,7 @@
         }
       },
       "required": [
-        "id",
+        "uid",
         "prid",
         "firstName",
         "lastName",
@@ -335,8 +335,7 @@
   },
   "auth": {
     "providers": [
-      "password",
-      "anonymous"
+      "email"
     ]
   },
   "firestore": {
@@ -352,7 +351,7 @@
           "params": [
             {
               "name": "profiId",
-              "description": "The unique identifier of the Profi (Hufbearbeiter)."
+              "description": "The unique identifier of the Profi (Hufbearbeiter), which is the Firebase Auth UID."
             }
           ]
         }
@@ -494,6 +493,6 @@
         }
       }
     ],
-    "reasoning": "The Firestore structure is designed to ensure data isolation and secure access control. Each Profi (Hufbearbeiter) has their own top-level collection for Customers, Horses, Partners and Appointments. This design achieves Authorization Independence by avoiding `get()` calls in security rules. Access control is enforced at the collection level, ensuring that one Profi cannot access another's data. Data for each Profi is segregated under their `profiId`, ensuring that list operations are secure (QAPs).  The `Consents` subcollection ensures data sharing with Partners is controlled by the Customer. The structure is optimized for a 1:N relationship between `Profi` and `Customer`, `Profi` and `Horse`, `Customer` and `Horse`, and `Profi` and `Appointment`."
+    "reasoning": "The Firestore structure is designed to ensure data isolation and secure access control. Each Profi (Hufbearbeiter) has their own top-level collection for Customers, Horses, Partners and Appointments. This design achieves Authorization Independence by avoiding `get()` calls in security rules. Access control is enforced at the collection level, ensuring that one Profi cannot access another's data. Data for each Profi is segregated under their `profiId`, which corresponds to their Firebase Auth UID, ensuring that list operations are secure (QAPs).  The `Consents` subcollection ensures data sharing with Partners is controlled by the Customer. The structure is optimized for a 1:N relationship between `Profi` and `Customer`, `Profi` and `Horse`, `Customer` and `Horse`, and `Profi` and `Appointment`."
   }
 }
