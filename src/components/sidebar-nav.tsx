@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, Users, Calendar, ClipboardCheck, MessageSquareQuote, Settings, Handshake, BarChart2, Star, Box, Package, Layers, Repeat, Receipt, Clock, Bell, MessageSquareHeart, User, Cog } from "lucide-react";
 import { HorseshoeIcon } from "@/components/logo";
-
 import { cn } from "@/lib/utils";
 import {
   SidebarMenu,
@@ -20,11 +19,11 @@ import React from "react";
 
 const mainNavItems = [
   { href: "/dashboard", label: "Dashboard", icon: Home },
+  { href: "/analyse", label: "HufAnalyse Pro", icon: ClipboardCheck },
+  { href: "/kalender", label: "Kalender", icon: Calendar },
   { href: "/kunden", label: "Kunden", icon: Users },
   { href: "/pferde", label: "Pferde", icon: HorseshoeIcon },
   { href: "/partner", label: "Partner", icon: Handshake },
-  { href: "/kalender", label: "Kalender", icon: Calendar },
-  { href: "/analyse", label: "HufAnalyse Pro", icon: ClipboardCheck },
   { href: "/umsaetze", label: "Umsätze", icon: BarChart2 },
   { href: "/anfragen", label: "Anfragen", icon: MessageSquareQuote },
 ];
@@ -35,9 +34,16 @@ const settingsSubMenus = {
     { href: "/einstellungen/produkte", label: "Produkte", icon: Package },
     { href: "/einstellungen/bundles", label: "Bundles", icon: Layers },
     { href: "/einstellungen/abos", label: "Abos", icon: Repeat },
+    { href: "/einstellungen/angebote", label: "Angebote (Öffentlich)", icon: Star },
+    { href: "/einstellungen/preise", label: "Preise & Reisekosten", icon: Receipt },
+  ],
+  automatisierung: [
+    { href: "/einstellungen/oeffnungszeiten", label: "Öffnungszeiten", icon: Clock },
+    { href: "/einstellungen/erinnerungen", label: "Erinnerungen & Storno", icon: Bell },
+    { href: "/einstellungen/feedback", label: "Feedback", icon: MessageSquareHeart },
   ],
   profil: [
-      { href: "/meine-seite", label: "Landing Page", icon: Star },
+      { href: "/meine-seite", label: "Landing Page", icon: Globe },
       { href: "/account", label: "Profil", icon: User },
       { href: "/einstellungen/system", label: "System", icon: Cog },
   ]
@@ -45,7 +51,7 @@ const settingsSubMenus = {
 
 export function SidebarNav() {
   const pathname = usePathname();
-  const [isSettingsOpen, setIsSettingsOpen] = React.useState(pathname.startsWith('/einstellungen') || pathname.startsWith('/meine-seite') || pathname.startsWith('/account'));
+  const isSettingsActive = pathname.startsWith('/einstellungen') || pathname.startsWith('/meine-seite') || pathname.startsWith('/account');
 
   return (
     <SidebarMenu>
@@ -53,7 +59,7 @@ export function SidebarNav() {
         <SidebarMenuItem key={item.href}>
           <SidebarMenuButton
             asChild
-            isActive={pathname.startsWith(item.href)}
+            isActive={pathname.startsWith(item.href) && item.href !== '/'}
             tooltip={item.label}
           >
             <Link href={item.href}>
@@ -65,12 +71,16 @@ export function SidebarNav() {
       ))}
       
       <SidebarMenuItem>
-        <Collapsible open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
+        <Collapsible open={isSettingsActive} onOpenChange={ (isOpen) => {
+            if (isOpen && !isSettingsActive) {
+                // Logic to handle opening, e.g. navigating or just expanding
+            }
+        }}>
           <CollapsibleTrigger asChild>
               <SidebarMenuButton
                 variant="default"
                 className="w-full"
-                isActive={isSettingsOpen}
+                isActive={isSettingsActive}
               >
                 <Settings className="size-4 shrink-0" />
                 <span>Einstellungen</span>
@@ -82,7 +92,17 @@ export function SidebarNav() {
                 {settingsSubMenus.leistungen.map((item) => (
                     <SidebarMenuItem key={item.href}>
                         <SidebarMenuSubButton asChild isActive={pathname.startsWith(item.href)}>
-                            <Link href={item.href}><item.icon /> {item.label}</Link>
+                            <Link href={item.href}><item.icon className="h-4 w-4" /> {item.label}</Link>
+                        </SidebarMenuSubButton>
+                    </SidebarMenuItem>
+                ))}
+            </SidebarMenuSub>
+            <SidebarGroupLabel>Automatisierung</SidebarGroupLabel>
+            <SidebarMenuSub>
+                {settingsSubMenus.automatisierung.map((item) => (
+                    <SidebarMenuItem key={item.href}>
+                        <SidebarMenuSubButton asChild isActive={pathname.startsWith(item.href)}>
+                            <Link href={item.href}><item.icon className="h-4 w-4" /> {item.label}</Link>
                         </SidebarMenuSubButton>
                     </SidebarMenuItem>
                 ))}
@@ -92,7 +112,7 @@ export function SidebarNav() {
                 {settingsSubMenus.profil.map((item) => (
                     <SidebarMenuItem key={item.href}>
                         <SidebarMenuSubButton asChild isActive={pathname.startsWith(item.href)}>
-                            <Link href={item.href}><item.icon /> {item.label}</Link>
+                            <Link href={item.href}><item.icon className="h-4 w-4" /> {item.label}</Link>
                         </SidebarMenuSubButton>
                     </SidebarMenuItem>
                 ))}
