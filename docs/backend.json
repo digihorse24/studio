@@ -181,6 +181,14 @@
         "notes": {
           "type": "string",
           "description": "Additional notes for the appointment."
+        },
+        "source": {
+            "type": "string",
+            "description": "Source of the appointment (e.g., HufManager, Google Calendar)."
+        },
+        "status": {
+            "type": "string",
+            "description": "Status of the appointment (e.g., geplant, abgeschlossen, storniert)."
         }
       },
       "required": [
@@ -189,7 +197,9 @@
         "customerId",
         "horseId",
         "startDateTime",
-        "endDateTime"
+        "endDateTime",
+        "source",
+        "status"
       ]
     },
     "Partner": {
