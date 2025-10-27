@@ -19,6 +19,9 @@ interface DataTableProps<T> {
 }
 
 export function DataTable<T extends { id: string | number }>({ columns, data }: DataTableProps<T>) {
+  // Defensive check to prevent build errors if data is not an array.
+  const safeData = Array.isArray(data) ? data : [];
+
   return (
     <div className="border-b">
       <Table>
@@ -30,8 +33,8 @@ export function DataTable<T extends { id: string | number }>({ columns, data }: 
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.length > 0 ? (
-            data.map((row) => (
+          {safeData.length > 0 ? (
+            safeData.map((row) => (
               <TableRow key={row.id}>
                 {columns.map((column, colIndex) => (
                   <TableCell key={colIndex} className="py-3">
