@@ -2,10 +2,12 @@ import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Clock, AlertTriangle, ArrowRight, Plus } from 'lucide-react';
+import { Clock, AlertTriangle, ArrowRight, Plus, User, Calendar, ClipboardCheck } from 'lucide-react';
 import Link from 'next/link';
 import api from '@/lib/api';
 import { format } from 'date-fns';
+import { HorseshoeIcon } from '@/components/logo';
+import { Handshake } from 'lucide-react';
 
 export default async function DashboardPage() {
     const today = format(new Date(), 'yyyy-MM-dd');
@@ -22,11 +24,51 @@ export default async function DashboardPage() {
         <>
             <PageHeader title="Dashboard" />
             <main className="flex-1 p-4 md:p-6">
+                <div className="mb-6">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Schnellzugriff</CardTitle>
+                        </CardHeader>
+                        <CardContent className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+                            <Button asChild size="lg" variant="outline" className="h-auto py-4 flex flex-col gap-2">
+                                <Link href="/analyse/neu">
+                                    <ClipboardCheck className="h-6 w-6" />
+                                    <span>Neue Hufanalyse</span>
+                                </Link>
+                            </Button>
+                            <Button asChild size="lg" variant="outline" className="h-auto py-4 flex flex-col gap-2">
+                                <Link href="/kalender">
+                                    <Calendar className="h-6 w-6" />
+                                    <span>Neuer Termin</span>
+                                </Link>
+                            </Button>
+                             <Button asChild size="lg" variant="outline" className="h-auto py-4 flex flex-col gap-2">
+                                <Link href="/kunden/neu">
+                                    <User className="h-6 w-6" />
+                                    <span>Neuer Kunde</span>
+                                </Link>
+                            </Button>
+                             <Button asChild size="lg" variant="outline" className="h-auto py-4 flex flex-col gap-2">
+                                <Link href="/pferde/neu">
+                                    <HorseshoeIcon className="h-6 w-6" />
+                                    <span>Neues Pferd</span>
+                                </Link>
+                            </Button>
+                             <Button asChild size="lg" variant="outline" className="h-auto py-4 flex flex-col gap-2">
+                                <Link href="/partner/neu">
+                                    <Handshake className="h-6 w-6" />
+                                    <span>Neuer Partner</span>
+                                </Link>
+                            </Button>
+                        </CardContent>
+                    </Card>
+                </div>
+
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                     <Card className="lg:col-span-2">
                         <CardHeader className="flex flex-row items-center justify-between">
                             <div className="space-y-1.5">
-                                <CardTitle>Heutige Termine</CardTitle>
+                                <CardTitle>Heutige Termine ({todaysAppointments.length})</CardTitle>
                                 <CardDescription>Eine Übersicht Ihrer Termine für heute.</CardDescription>
                             </div>
                             <Button asChild variant="outline">
@@ -45,10 +87,13 @@ export default async function DashboardPage() {
                                                 {termin.time.split(':')[0]}
                                             </div>
                                             <div className="flex-1">
-                                                <p className="font-semibold">{termin.service}</p>
-                                                <p className="text-sm text-muted-foreground">{pferd?.name} ({kunde?.name})</p>
+                                                <p className="font-semibold">{pferd?.name} ({kunde?.name})</p>
+                                                <p className="text-sm text-muted-foreground">{termin.service}</p>
                                             </div>
-                                            <Clock className="h-5 w-5 text-muted-foreground" />
+                                            <div className="flex items-center gap-2 text-sm">
+                                                <Clock className="h-4 w-4 text-muted-foreground" />
+                                                <span>{termin.time} Uhr</span>
+                                            </div>
                                         </li>
                                     )
                                 })}
@@ -92,31 +137,6 @@ export default async function DashboardPage() {
                                     <p>Keine fälligen Pferde.</p>
                                 </div>
                             )}
-                        </CardContent>
-                    </Card>
-                </div>
-
-                 <div className="mt-6 grid gap-6">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Schnellzugriff</CardTitle>
-                        </CardHeader>
-                        <CardContent className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
-                            <Button asChild size="lg" variant="outline">
-                                <Link href="/kunden/neu">
-                                    <Plus className="mr-2 h-4 w-4" /> Neuen Kunden anlegen
-                                </Link>
-                            </Button>
-                            <Button asChild size="lg" variant="outline">
-                                <Link href="/kalender">
-                                    <Plus className="mr-2 h-4 w-4" /> Neuen Termin erstellen
-                                </Link>
-                            </Button>
-                             <Button asChild size="lg" variant="outline">
-                                <Link href="/analyse/neu">
-                                    <Plus className="mr-2 h-4 w-4" /> Neue Hufanalyse starten
-                                </Link>
-                            </Button>
                         </CardContent>
                     </Card>
                 </div>
