@@ -140,3 +140,21 @@ export const mockConsents: Consent[] = [
         requested_at: subDays(today, 2).toISOString(),
     }
 ]
+
+// This function simulates adding a customer to the mock data.
+// In a real app, this would be a database call.
+// IMPORTANT: This only affects the data for the current session and will be reset on server restart.
+export function addKunde(data: { name: string; email: string; phone: string; address: string; }) {
+    const newKunde: Kunde = {
+        id: `kunde-${Date.now()}`,
+        kid: generateKid(),
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        address: data.address,
+        pferde_ids: [],
+    };
+    mockKunden.push(newKunde);
+    console.log("New customer added to mock data (session only):", newKunde);
+    return newKunde;
+}
