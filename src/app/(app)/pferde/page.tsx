@@ -9,6 +9,7 @@ import { Kunde, Pferd } from '@/lib/types';
 import { mockKunden, mockPferde } from '@/lib/data';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function PferdePage() {
     const pferde = mockPferde;

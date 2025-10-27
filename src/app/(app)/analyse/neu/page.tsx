@@ -4,6 +4,7 @@ import { AnalysisWizard } from './components/analysis-wizard';
 import { mockPferde } from '@/lib/data';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function NewAnalysisPage() {
     const pferde = mockPferde;

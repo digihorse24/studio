@@ -9,6 +9,7 @@ import { Kunde } from '@/lib/types';
 import { mockKunden } from '@/lib/data';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function KundenPage() {
     const kunden = Array.isArray(mockKunden) ? mockKunden : [];

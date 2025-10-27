@@ -10,6 +10,7 @@ import { Handshake } from 'lucide-react';
 import { mockTermine, mockKunden, mockPferde } from '@/lib/data';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function DashboardPage() {
     const today = format(new Date(), 'yyyy-MM-dd');

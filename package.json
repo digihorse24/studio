@@ -12,7 +12,8 @@
     "typecheck": "tsc --noEmit"
   },
   "engines": {
-    "node": "20.x"
+    "node": "20.x",
+    "npm": "10.x"
   },
   "dependencies": {
     "@genkit-ai/google-genai": "^1.20.0",

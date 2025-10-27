@@ -8,6 +8,7 @@ import { Handshake } from 'lucide-react';
 import { mockPartner } from '@/lib/data';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function PartnerPage() {
     const partner = mockPartner;

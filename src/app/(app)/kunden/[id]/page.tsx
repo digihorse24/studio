@@ -13,6 +13,7 @@ import { HorseshoeIcon } from '@/components/logo';
 import { mockKunden, mockPferde, mockPartner, mockConsents } from '@/lib/data';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 async function HorseList({ kundeId }: { kundeId: string }) {
     const kunde = mockKunden.find(k => k.id === kundeId);
