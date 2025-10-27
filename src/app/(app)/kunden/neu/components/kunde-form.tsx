@@ -8,7 +8,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "@/components/ui/input";
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
-import { useState, useTransition } from 'react';
+import { useTransition } from 'react';
 import { Loader2 } from 'lucide-react';
 import { addKunde } from '../actions';
 
@@ -37,13 +37,13 @@ export function KundeForm() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
       try {
-        const newKunde = await addKunde(values);
+        await addKunde(values);
         toast({
           title: "Kunde erfolgreich erstellt",
-          description: `${values.name} wurde zu Ihren Kunden hinzugefügt.`,
+          description: `${values.name} wurde zu Ihren Kunden hinzugefügt. (In dieser Demo wird der Kunde nicht dauerhaft gespeichert.)`,
         });
         router.push('/kunden');
-        router.refresh(); // Refresh the data on the target page
+        router.refresh();
       } catch (error) {
         console.error(error);
         toast({
