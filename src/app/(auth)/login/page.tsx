@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { initiateEmailSignIn, useAuth } from '@/firebase';
+import { useAuth } from '@/firebase';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { FirebaseError } from 'firebase/app';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -24,8 +25,7 @@ export default function LoginPage() {
     setIsLoading(true);
     try {
       if (!auth) throw new Error("Auth service not available");
-      // We are not awaiting here to enable non-blocking UI
-      initiateEmailSignIn(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password);
       toast({
         title: "Anmeldung erfolgreich",
         description: "Sie werden zum Dashboard weitergeleitet.",
@@ -37,6 +37,7 @@ export default function LoginPage() {
       if (error instanceof FirebaseError) {
         switch (error.code) {
           case 'auth/user-not-found':
+          case 'auth/invalid-email':
             description = "Kein Benutzer mit dieser E-Mail-Adresse gefunden.";
             break;
           case 'auth/wrong-password':

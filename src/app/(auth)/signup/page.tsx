@@ -3,14 +3,14 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { initiateEmailSignUp, useAuth } from '@/firebase';
+import { useAuth } from '@/firebase';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { FirebaseError } from 'firebase/app';
-import { updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 export default function SignupPage() {
   const [firstName, setFirstName] = useState('');
@@ -29,14 +29,14 @@ export default function SignupPage() {
     try {
         if (!auth) throw new Error("Auth service not available");
 
-        // The non-blocking function doesn't return the user,
-        // so we'll rely on the onAuthStateChanged listener to redirect.
-        initiateEmailSignUp(auth, email, password);
+        // Wait for the user to be created to get the user object
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
 
-        // We can't update the profile directly without the user object.
-        // This part needs to be handled after the user is created and logged in,
-        // likely by listening to auth state changes. For now, we'll navigate
-        // and assume an observer will pick it up.
+        // Now update the profile with the display name
+        await updateProfile(user, {
+          displayName: `${firstName} ${lastName}`
+        });
         
         toast({
             title: "Registrierung erfolgreich",
