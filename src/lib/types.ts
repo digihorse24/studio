@@ -65,10 +65,7 @@ export interface HufAnalyse {
     hufgroesse_hr: string;
   };
   hoof_images: {
-    vl_frontal?: string;
-    vr_frontal?: string;
-    hl_frontal?: string;
-    hr_frontal?: string;
+    [key: string]: string | undefined; // e.g., vl_frontal, vr_frontal
   };
   assessment: {
     [key: string]: 'good' | 'average' | 'bad' | null;

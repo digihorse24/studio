@@ -2,13 +2,11 @@
 
 import { useState } from 'react';
 import { useAnalysis } from '../context/analysis-context';
-import api from '@/lib/api';
 import { Pferd } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { SignaturePad } from './signature-pad';
