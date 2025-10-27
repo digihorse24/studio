@@ -3,6 +3,8 @@ import { AnalysisProvider } from './context/analysis-context';
 import { AnalysisWizard } from './components/analysis-wizard';
 import { mockPferde } from '@/lib/data';
 
+export const dynamic = 'force-dynamic';
+
 export default async function NewAnalysisPage() {
     const pferde = mockPferde;
 

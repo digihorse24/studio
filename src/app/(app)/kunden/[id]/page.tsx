@@ -12,6 +12,7 @@ import { format, parseISO } from 'date-fns';
 import { HorseshoeIcon } from '@/components/logo';
 import { mockKunden, mockPferde, mockPartner, mockConsents } from '@/lib/data';
 
+export const dynamic = 'force-dynamic';
 
 async function HorseList({ kundeId }: { kundeId: string }) {
     const kunde = mockKunden.find(k => k.id === kundeId);

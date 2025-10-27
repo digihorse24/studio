@@ -8,6 +8,8 @@ import { Badge } from '@/components/ui/badge';
 import { Kunde, Pferd } from '@/lib/types';
 import { mockKunden, mockPferde } from '@/lib/data';
 
+export const dynamic = 'force-dynamic';
+
 export default async function PferdePage() {
     const pferde = mockPferde;
     const kunden = mockKunden;

@@ -7,6 +7,8 @@ import { Badge } from '@/components/ui/badge';
 import { Handshake } from 'lucide-react';
 import { mockPartner } from '@/lib/data';
 
+export const dynamic = 'force-dynamic';
+
 export default async function PartnerPage() {
     const partner = mockPartner;
 

@@ -2,6 +2,8 @@ import { PageHeader } from '@/components/page-header';
 import { CalendarClient } from './components/calendar-client';
 import { mockTermine, mockKunden, mockPferde } from '@/lib/data';
 
+export const dynamic = 'force-dynamic';
+
 export default async function KalenderPage() {
     const termine = mockTermine;
     const kunden = mockKunden;

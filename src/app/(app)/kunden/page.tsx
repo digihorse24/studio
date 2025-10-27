@@ -9,6 +9,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Kunde } from '@/lib/types';
 import { mockKunden } from '@/lib/data';
 
+export const dynamic = 'force-dynamic';
+
 export default async function KundenPage() {
     // Ensure that mockKunden is always treated as an array.
     const kunden = Array.isArray(mockKunden) ? mockKunden : [];
