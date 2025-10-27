@@ -37,13 +37,15 @@ export function KundeForm() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
       try {
-        await addKunde(values);
+        const newKunde = await addKunde(values);
         toast({
           title: "Kunde erfolgreich erstellt",
           description: `${values.name} wurde zu Ihren Kunden hinzugefügt.`,
         });
         router.push('/kunden');
+        router.refresh(); // Refresh the data on the target page
       } catch (error) {
+        console.error(error);
         toast({
           variant: "destructive",
           title: "Fehler",
