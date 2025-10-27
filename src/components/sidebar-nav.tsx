@@ -25,6 +25,7 @@ const mainNavItems = [
   { href: "/pferde", label: "Pferde", icon: HorseshoeIcon },
   { href: "/partner", label: "Partner", icon: Handshake },
   { href: "/umsaetze", label: "Umsätze", icon: BarChart2 },
+  { href: "/feedback", label: "Feedback", icon: MessageSquareHeart },
   { href: "/anfragen", label: "Anfragen", icon: MessageSquareQuote },
 ];
 
@@ -59,7 +60,7 @@ export function SidebarNav() {
         <SidebarMenuItem key={item.href}>
           <SidebarMenuButton
             asChild
-            isActive={pathname.startsWith(item.href) && (item.href !== '/' || pathname === '/')}
+            isActive={pathname.startsWith(item.href) && (item.href !== '/dashboard' || pathname === '/dashboard')}
             tooltip={item.label}
           >
             <Link href={item.href}>

@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Save, UploadCloud, Trash2, Globe } from 'lucide-react';
+import { Save, UploadCloud, Trash2, Globe, Star } from 'lucide-react';
 import Logo from '@/components/logo';
 
 type CustomerStatus = "accepting" | "limited" | "closed";
@@ -19,6 +19,12 @@ const statusMapping: { [key in CustomerStatus]: { text: string; color: string; }
   limited: { text: "Begrenzt verfügbar", color: "bg-orange-500" },
   closed: { text: "Ausgebucht", color: "bg-red-500" },
 };
+
+// Mock-Feedback-Daten
+const mockFeedbacks = [
+    { name: "Erika M.", rating: 5, comment: "Super zuverlässig und sehr liebevoll im Umgang mit meinem Pferd. Der Hufzustand hat sich seitdem sichtbar verbessert!" },
+    { name: "Jens P.", rating: 5, comment: "Endlich jemand, der sich Zeit nimmt und alles genau erklärt. Fühle mich und mein Pferd bestens aufgehoben." },
+];
 
 export default function MeineSeitePage() {
   const [headline, setHeadline] = useState("Professionelle Hufpflege für gesunde Pferdehufe");
@@ -109,6 +115,15 @@ export default function MeineSeitePage() {
                 </div>
             </CardContent>
           </Card>
+           <Card>
+            <CardHeader>
+                <CardTitle>Kundenstimmen</CardTitle>
+                <CardDescription>Sie können in der Feedback-Inbox festlegen, welche Stimmen hier erscheinen sollen.</CardDescription>
+            </CardHeader>
+             <CardContent>
+                <p className="text-muted-foreground text-center py-4">Vorschau der ausgewählten Feedbacks.</p>
+            </CardContent>
+          </Card>
           <Card>
             <CardHeader>
                 <CardTitle>Kontaktformular</CardTitle>
@@ -169,7 +184,24 @@ export default function MeineSeitePage() {
                         </div>
                     </section>
 
-                    <section id="kontakt" className="py-12 px-4 bg-gray-50">
+                    <section id="feedback" className="py-12 px-4 bg-gray-50">
+                        <h2 className="text-3xl font-bold text-center mb-8">Das sagen meine Kunden</h2>
+                        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+                            {mockFeedbacks.map((fb, i) => (
+                                <Card key={i} className="bg-white">
+                                    <CardContent className="p-6">
+                                        <div className="flex items-center mb-2">
+                                            {[...Array(fb.rating)].map((_, i) => <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />)}
+                                        </div>
+                                        <p className="text-gray-600 italic">"{fb.comment}"</p>
+                                        <p className="text-right mt-4 font-semibold text-gray-800">- {fb.name}</p>
+                                    </CardContent>
+                                </Card>
+                            ))}
+                        </div>
+                    </section>
+
+                    <section id="kontakt" className="py-12 px-4">
                         <div className="max-w-xl mx-auto">
                              <h2 className="text-3xl font-bold text-center mb-8">{contactTitle}</h2>
                              <form className="space-y-4">

@@ -427,6 +427,59 @@
         "receivedAt",
         "status"
       ]
+    },
+    "Feedback": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Feedback",
+      "type": "object",
+      "description": "Represents a customer feedback for a completed appointment.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the feedback."
+        },
+        "profiId": {
+          "type": "string",
+          "description": "Reference to the Profi (Hufbearbeiter) who received the feedback."
+        },
+        "customerId": {
+          "type": "string",
+          "description": "Reference to the Customer who gave the feedback."
+        },
+        "appointmentId": {
+          "type": "string",
+          "description": "Reference to the Appointment this feedback is for."
+        },
+        "rating": {
+          "type": "number",
+          "description": "Numerical rating from 1 to 5."
+        },
+        "comment": {
+          "type": "string",
+          "description": "The customer's comment."
+        },
+        "response": {
+          "type": "string",
+          "description": "The Profi's response to the feedback."
+        },
+        "isPublic": {
+          "type": "boolean",
+          "description": "Whether the feedback is visible on the public landing page."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the feedback was received.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "profiId",
+        "customerId",
+        "appointmentId",
+        "rating",
+        "createdAt"
+      ]
     }
   },
   "auth": {
@@ -623,8 +676,28 @@
             }
           ]
         }
+      },
+      {
+        "path": "/profis/{profiId}/feedbacks/{feedbackId}",
+        "definition": {
+          "entityName": "Feedback",
+          "schema": {
+            "$ref": "#/backend/entities/Feedback"
+          },
+          "description": "Stores customer feedback. Owned by a Profi.",
+          "params": [
+            {
+              "name": "profiId",
+              "description": "The unique identifier of the Profi (Hufbearbeiter) who received the feedback."
+            },
+            {
+              "name": "feedbackId",
+              "description": "The unique identifier of the feedback record."
+            }
+          ]
+        }
       }
     ],
-    "reasoning": "The Firestore structure is designed to ensure data isolation and secure access control. Each Profi (Hufbearbeiter) has their own top-level collection for Customers, Horses, Partners and Appointments. This design achieves Authorization Independence by avoiding `get()` calls in security rules. Access control is enforced at the collection level, ensuring that one Profi cannot access another's data. Data for each Profi is segregated under their `profiId`, which corresponds to their Firebase Auth UID, ensuring that list operations are secure (QAPs).  The `Consents` subcollection ensures data sharing with Partners is controlled by the Customer. The structure is optimized for a 1:N relationship between `Profi` and `Customer`, `Profi` and `Horse`, `Customer` and `Horse`, and `Profi` and `Appointment`. The new 'landingpage' and 'inquiries' collections are also placed under the Profi's top-level collection to maintain data segregation."
+    "reasoning": "The Firestore structure is designed to ensure data isolation and secure access control. Each Profi (Hufbearbeiter) has their own top-level collection for Customers, Horses, Partners and Appointments. This design achieves Authorization Independence by avoiding `get()` calls in security rules. Access control is enforced at the collection level, ensuring that one Profi cannot access another's data. Data for each Profi is segregated under their `profiId`, which corresponds to their Firebase Auth UID, ensuring that list operations are secure (QAPs).  The `Consents` subcollection ensures data sharing with Partners is controlled by the Customer. The structure is optimized for a 1:N relationship between `Profi` and `Customer`, `Profi` and `Horse`, `Customer` and `Horse`, and `Profi` and `Appointment`. The new 'landingpage', 'inquiries', and 'feedbacks' collections are also placed under the Profi's top-level collection to maintain data segregation."
   }
 }
