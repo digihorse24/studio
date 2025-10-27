@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Users, Calendar, ClipboardCheck, MessageSquareQuote, Settings, Handshake, BarChart2, Star, Box, Package, Layers, Repeat, Receipt, Clock, Bell, MessageSquareHeart, User, Cog } from "lucide-react";
+import { Home, Users, Calendar, ClipboardCheck, MessageSquareQuote, Settings, Handshake, BarChart2, Star, Box, Package, Layers, Repeat, Receipt, Clock, Bell, MessageSquareHeart, User, Cog, Globe } from "lucide-react";
 import { HorseshoeIcon } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import {
@@ -59,7 +59,7 @@ export function SidebarNav() {
         <SidebarMenuItem key={item.href}>
           <SidebarMenuButton
             asChild
-            isActive={pathname.startsWith(item.href) && item.href !== '/'}
+            isActive={pathname.startsWith(item.href) && (item.href !== '/' || pathname === '/')}
             tooltip={item.label}
           >
             <Link href={item.href}>
