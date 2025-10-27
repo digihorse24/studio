@@ -44,7 +44,7 @@ const settingsSubMenus = {
   ],
   profil: [
       { href: "/meine-seite", label: "Landing Page", icon: Globe },
-      { href: "/account", label: "Profil", icon: User },
+      { href: "/account", label: "Mein Konto", icon: User },
       { href: "/einstellungen/system", label: "System", icon: Cog },
   ]
 };
