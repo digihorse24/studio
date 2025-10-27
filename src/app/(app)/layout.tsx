@@ -5,6 +5,7 @@ import { SidebarNav } from "@/components/sidebar-nav";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FirebaseClientProvider } from "@/firebase";
 import { UserNav } from "@/components/user-nav";
+import { SupportChatbot } from "@/components/support-chatbot";
 
 export default function AppLayout({
   children,
@@ -27,6 +28,7 @@ export default function AppLayout({
         </Sidebar>
         <SidebarInset>
           {children}
+          <SupportChatbot />
         </SidebarInset>
       </SidebarProvider>
     </FirebaseClientProvider>
