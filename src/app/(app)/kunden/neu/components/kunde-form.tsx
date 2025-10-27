@@ -37,13 +37,17 @@ export function KundeForm() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
       try {
-        await addKunde(values);
-        toast({
-          title: "Kunde erfolgreich erstellt",
-          description: `${values.name} wurde zu Ihren Kunden hinzugefügt. (In dieser Demo wird der Kunde nicht dauerhaft gespeichert.)`,
-        });
-        router.push('/kunden');
-        router.refresh();
+        const result = await addKunde(values);
+        if (result.success) {
+            toast({
+              title: "Kunde erfolgreich erstellt",
+              description: `${values.name} wurde zu Ihren Kunden hinzugefügt. (In dieser Demo wird der Kunde nicht dauerhaft gespeichert.)`,
+            });
+            router.push('/kunden');
+            router.refresh(); // Important to see changes with the mock API
+        } else {
+             throw new Error("Server action failed");
+        }
       } catch (error) {
         console.error(error);
         toast({

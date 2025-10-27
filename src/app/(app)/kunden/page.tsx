@@ -8,7 +8,9 @@ import { columns } from './components/columns';
 import { Card, CardContent } from '@/components/ui/card';
 
 export default async function KundenPage() {
-    const kunden = await api.getKunden();
+    const kundenData = await api.getKunden();
+    // Defensive check to ensure kunden is always an array
+    const kunden = Array.isArray(kundenData) ? kundenData : [];
 
     return (
         <>
