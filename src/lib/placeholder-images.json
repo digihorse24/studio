@@ -1,3 +1,28 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "horse-1",
+      "description": "A beautiful brown horse in a field.",
+      "imageUrl": "https://images.unsplash.com/photo-1561132538-fa3e519681c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxicm93biUyMGhvcnNlfGVufDB8fHx8MTc2MTU0NjQ0MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "brown horse"
+    },
+    {
+      "id": "horse-2",
+      "description": "A white horse running in the snow.",
+      "imageUrl": "https://images.unsplash.com/uploads/1413614530833935c0ea1/16ea67e5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8d2hpdGUlMjBob3JzZXxlbnwwfHx8fDE3NjE1NDY0NDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "white horse"
+    },
+    {
+      "id": "horse-3",
+      "description": "A black horse standing majestically.",
+      "imageUrl": "https://images.unsplash.com/photo-1579860925360-a01ccd2cfd15?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxibGFjayUyMGhvcnNlfGVufDB8fHx8MTc2MTU0NjQ0MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "black horse"
+    },
+    {
+      "id": "horse-4",
+      "description": "A gray horse with a flowing mane.",
+      "imageUrl": "https://images.unsplash.com/photo-1676275833938-bc012963ce75?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxncmF5JTIwaG9yc2V8ZW58MHx8fHwxNzYxNTQ2NDQxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gray horse"
+    }
+  ]
 }
