@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { FirebaseError } from 'firebase/app';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import Logo from '@/components/logo';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -61,12 +62,14 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <Card className="w-full max-w-sm">
-        <CardHeader>
-          <CardTitle className="text-2xl">Anmelden</CardTitle>
+        <CardHeader className="text-center">
+            <div className="flex justify-center mb-4">
+                <Logo />
+            </div>
+          <CardTitle className="text-2xl">Willkommen zurück!</CardTitle>
           <CardDescription>
-            Geben Sie Ihre E-Mail-Adresse und Ihr Passwort ein, um sich anzumelden.
+            Melden Sie sich an, um auf Ihr Dashboard zuzugreifen.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -104,6 +107,5 @@ export default function LoginPage() {
           </div>
         </CardContent>
       </Card>
-    </div>
   );
 }
