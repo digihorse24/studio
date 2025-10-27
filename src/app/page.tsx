@@ -21,11 +21,13 @@ export default function Home() {
               <MoveRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
-          <Button asChild variant="link" size="lg">
-            <Link href="#">Mehr erfahren <span aria-hidden="true">→</span></Link>
-          </Button>
         </div>
       </div>
+      <footer className="absolute bottom-8 text-center text-sm text-muted-foreground">
+        <Link href="/datenschutz" className="hover:text-foreground transition-colors">
+          Datenschutzerklärung
+        </Link>
+      </footer>
     </main>
   );
 }
