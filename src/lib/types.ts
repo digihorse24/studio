@@ -15,8 +15,8 @@ export interface Pferd {
   rasse: string;
   alter: number;
   besitzer_id: string; // Kunde ID
-  imageUrl?: string;
-  imageHint?: string;
+  imageUrl: string;
+  imageHint: string;
 }
 
 export interface Termin {
