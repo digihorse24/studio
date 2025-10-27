@@ -7,9 +7,10 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Plus, User, Mail, Phone, Home, Horse, Users, ShieldCheck } from 'lucide-react';
+import { Plus, User, Mail, Phone, Home, Users, ShieldCheck } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { format, parseISO } from 'date-fns';
+import { HorseshoeIcon } from '@/components/logo';
 
 async function HorseList({ kundeId }: { kundeId: string }) {
     const pferde = await api.getPferdeByKunde(kundeId);
@@ -65,7 +66,7 @@ async function ConsentManager({ kundeId }: { kundeId: string }) {
     const pferde = await api.getPferde();
     const partners = await api.getPartner();
     
-    const statusColors = {
+    const statusColors: { [key: string]: string } = {
         pending: 'bg-yellow-100 text-yellow-800',
         approved: 'bg-green-100 text-green-800',
         denied: 'bg-red-100 text-red-800',
@@ -137,7 +138,7 @@ export default async function KundeDetailPage({ params }: { params: { id: string
 
                 <Tabs defaultValue="pferde">
                     <TabsList>
-                        <TabsTrigger value="pferde"><Horse className="mr-2 h-4 w-4" /> Pferde</TabsTrigger>
+                        <TabsTrigger value="pferde"><HorseshoeIcon className="mr-2 h-4 w-4" /> Pferde</TabsTrigger>
                         <TabsTrigger value="partner"><Users className="mr-2 h-4 w-4" /> Partner</TabsTrigger>
                         <TabsTrigger value="freigaben"><ShieldCheck className="mr-2 h-4 w-4" /> Freigaben</TabsTrigger>
                     </TabsList>

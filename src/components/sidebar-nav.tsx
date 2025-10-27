@@ -34,13 +34,6 @@ const settingsSubMenus = {
     { href: "/einstellungen/produkte", label: "Produkte", icon: Package },
     { href: "/einstellungen/bundles", label: "Bundles", icon: Layers },
     { href: "/einstellungen/abos", label: "Abos", icon: Repeat },
-    { href: "/einstellungen/angebote", label: "Angebote (Öffentlich)", icon: Star },
-    { href: "/einstellungen/preise", label: "Preise & Reisekosten", icon: Receipt },
-  ],
-  automatisierung: [
-    { href: "/einstellungen/oeffnungszeiten", label: "Öffnungszeiten", icon: Clock },
-    { href: "/einstellungen/erinnerungen", label: "Erinnerungen & Storno", icon: Bell },
-    { href: "/einstellungen/feedback", label: "Feedback", icon: MessageSquareHeart },
   ],
   profil: [
       { href: "/meine-seite", label: "Landing Page", icon: Star },
@@ -59,7 +52,7 @@ export function SidebarNav() {
         <SidebarMenuItem key={item.href}>
           <SidebarMenuButton
             asChild
-            isActive={pathname === item.href}
+            isActive={pathname.startsWith(item.href)}
             tooltip={item.label}
           >
             <Link href={item.href}>
@@ -83,6 +76,7 @@ export function SidebarNav() {
               </SidebarMenuButton>
           </CollapsibleTrigger>
           <CollapsibleContent>
+            <SidebarGroupLabel>Leistungen & Produkte</SidebarGroupLabel>
             <SidebarMenuSub>
                 {settingsSubMenus.leistungen.map((item) => (
                     <SidebarMenuItem key={item.href}>
@@ -92,15 +86,7 @@ export function SidebarNav() {
                     </SidebarMenuItem>
                 ))}
             </SidebarMenuSub>
-            <SidebarMenuSub>
-                {settingsSubMenus.automatisierung.map((item) => (
-                    <SidebarMenuItem key={item.href}>
-                        <SidebarMenuSubButton asChild isActive={pathname.startsWith(item.href)}>
-                            <Link href={item.href}><item.icon /> {item.label}</Link>
-                        </SidebarMenuSubButton>
-                    </SidebarMenuItem>
-                ))}
-            </SidebarMenuSub>
+             <SidebarGroupLabel>Mein Profil</SidebarGroupLabel>
              <SidebarMenuSub>
                 {settingsSubMenus.profil.map((item) => (
                     <SidebarMenuItem key={item.href}>

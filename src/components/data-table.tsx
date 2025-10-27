@@ -9,7 +9,7 @@ import {
 
 interface ColumnDef<T> {
   header: string;
-  accessorKey: keyof T;
+  accessorKey: keyof T | 'actions';
   cell?: (row: T) => React.ReactNode;
 }
 
@@ -20,7 +20,7 @@ interface DataTableProps<T> {
 
 export function DataTable<T extends { id: string | number }>({ columns, data }: DataTableProps<T>) {
   return (
-    <div className="rounded-lg border">
+    <div className="border-b">
       <Table>
         <TableHeader>
           <TableRow>
@@ -34,8 +34,8 @@ export function DataTable<T extends { id: string | number }>({ columns, data }: 
             data.map((row) => (
               <TableRow key={row.id}>
                 {columns.map((column, colIndex) => (
-                  <TableCell key={colIndex}>
-                    {column.cell ? column.cell(row) : String(row[column.accessorKey])}
+                  <TableCell key={colIndex} className="py-3">
+                    {column.cell ? column.cell(row) : String(row[column.accessorKey as keyof T])}
                   </TableCell>
                 ))}
               </TableRow>

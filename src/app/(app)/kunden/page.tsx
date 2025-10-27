@@ -5,6 +5,7 @@ import Link from 'next/link';
 import api from '@/lib/api';
 import { DataTable } from '@/components/data-table';
 import { columns } from './components/columns';
+import { Card, CardContent } from '@/components/ui/card';
 
 export default async function KundenPage() {
     const kunden = await api.getKunden();
@@ -20,7 +21,11 @@ export default async function KundenPage() {
                 </Button>
             </PageHeader>
             <main className="flex-1 p-4 md:p-6">
-                <DataTable columns={columns} data={kunden} />
+                <Card>
+                    <CardContent className="p-0">
+                        <DataTable columns={columns} data={kunden} />
+                    </CardContent>
+                </Card>
             </main>
         </>
     );
