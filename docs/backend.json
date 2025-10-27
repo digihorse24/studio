@@ -1,0 +1,499 @@
+{
+  "entities": {
+    "Customer": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Customer",
+      "type": "object",
+      "description": "Represents a customer (Pferdebesitzer) in the HufManager application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the customer."
+        },
+        "profiId": {
+          "type": "string",
+          "description": "Reference to the Profi (Hufbearbeiter) who manages this customer. (Relationship: Profi 1:N Customer)"
+        },
+        "kid": {
+          "type": "string",
+          "description": "Human-readable Customer ID (e.g., #KID202407-123)."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "First name of the customer."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Last name of the customer."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the customer.",
+          "format": "email"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Phone number of the customer."
+        },
+        "address": {
+          "type": "string",
+          "description": "Street address of the customer."
+        },
+        "city": {
+          "type": "string",
+          "description": "City of the customer."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "Postal code of the customer."
+        }
+      },
+      "required": [
+        "id",
+        "profiId",
+        "kid",
+        "firstName",
+        "lastName"
+      ]
+    },
+    "Profi": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Profi",
+      "type": "object",
+      "description": "Represents a Hufbearbeiter (hoof care professional) in the HufManager application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Profi."
+        },
+        "prid": {
+          "type": "string",
+          "description": "Human-readable Profi ID (e.g., #PrID24A9B1)."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "First name of the Profi."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Last name of the Profi."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the Profi.",
+          "format": "email"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Phone number of the Profi."
+        },
+        "address": {
+          "type": "string",
+          "description": "Street address of the Profi."
+        },
+        "city": {
+          "type": "string",
+          "description": "City of the Profi."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "Postal code of the Profi."
+        }
+      },
+      "required": [
+        "id",
+        "prid",
+        "firstName",
+        "lastName",
+        "email"
+      ]
+    },
+    "Horse": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Horse",
+      "type": "object",
+      "description": "Represents a horse in the HufManager application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the horse."
+        },
+        "customerId": {
+          "type": "string",
+          "description": "Reference to the Customer who owns this horse. (Relationship: Customer 1:N Horse)"
+        },
+        "eqid": {
+          "type": "string",
+          "description": "Human-readable Equine ID (e.g., EqID-BLITZ-A4B7)."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the horse."
+        },
+        "breed": {
+          "type": "string",
+          "description": "Breed of the horse."
+        },
+        "age": {
+          "type": "number",
+          "description": "Age of the horse in years."
+        }
+      },
+      "required": [
+        "id",
+        "customerId",
+        "eqid",
+        "name"
+      ]
+    },
+    "Appointment": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Appointment",
+      "type": "object",
+      "description": "Represents an appointment in the HufManager application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the appointment."
+        },
+        "profiId": {
+          "type": "string",
+          "description": "Reference to the Profi (Hufbearbeiter) who is assigned to this appointment. (Relationship: Profi 1:N Appointment)"
+        },
+        "customerId": {
+          "type": "string",
+          "description": "Reference to the Customer associated with this appointment. (Relationship: Customer 1:N Appointment)"
+        },
+        "horseId": {
+          "type": "string",
+          "description": "Reference to the Horse associated with this appointment. (Relationship: Horse 1:N Appointment)"
+        },
+        "startDateTime": {
+          "type": "string",
+          "description": "Start date and time of the appointment.",
+          "format": "date-time"
+        },
+        "endDateTime": {
+          "type": "string",
+          "description": "End date and time of the appointment.",
+          "format": "date-time"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Additional notes for the appointment."
+        }
+      },
+      "required": [
+        "id",
+        "profiId",
+        "customerId",
+        "horseId",
+        "startDateTime",
+        "endDateTime"
+      ]
+    },
+    "Partner": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Partner",
+      "type": "object",
+      "description": "Represents a partner (Tierarzt, Schmied etc.) in the HufManager application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the partner."
+        },
+        "profiId": {
+          "type": "string",
+          "description": "Reference to the Profi (Hufbearbeiter) who created this partner record. (Relationship: Profi 1:N Partner)"
+        },
+        "pid": {
+          "type": "string",
+          "description": "Human-readable Partner ID (e.g., #PidXYZ123)."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "First name of the partner."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Last name of the partner."
+        },
+        "profession": {
+          "type": "string",
+          "description": "Profession of the partner (e.g., Tierarzt, Schmied)."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the partner.",
+          "format": "email"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Phone number of the partner."
+        }
+      },
+      "required": [
+        "id",
+        "profiId",
+        "pid",
+        "firstName",
+        "lastName",
+        "profession"
+      ]
+    },
+    "Consent": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Consent",
+      "type": "object",
+      "description": "Represents a consent record for sharing horse data with a partner.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the consent record."
+        },
+        "profiId": {
+          "type": "string",
+          "description": "Reference to the Profi (Hufbearbeiter) who requested the consent. (Relationship: Profi 1:N Consent)"
+        },
+        "customerId": {
+          "type": "string",
+          "description": "Reference to the Customer who owns the horse. (Relationship: Customer 1:N Consent)"
+        },
+        "horseId": {
+          "type": "string",
+          "description": "Reference to the Horse for which consent is granted. (Relationship: Horse 1:N Consent)"
+        },
+        "partnerId": {
+          "type": "string",
+          "description": "Reference to the Partner who is receiving the consent. (Relationship: Partner 1:N Consent)"
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of the consent (pending, approved, denied, revoked)."
+        },
+        "scopes": {
+          "type": "array",
+          "description": "Array of scopes granted to the partner.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "profiId",
+        "customerId",
+        "horseId",
+        "partnerId",
+        "status",
+        "scopes"
+      ]
+    },
+    "HoofAnalysis": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "HoofAnalysis",
+      "type": "object",
+      "description": "Represents a hoof analysis record generated by HufAnalysePro.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the hoof analysis record."
+        },
+        "profiId": {
+          "type": "string",
+          "description": "Reference to the Profi (Hufbearbeiter) who performed the analysis. (Relationship: Profi 1:N HoofAnalysis)"
+        },
+        "horseId": {
+          "type": "string",
+          "description": "Reference to the Horse for which the analysis was performed. (Relationship: Horse 1:N HoofAnalysis)"
+        },
+        "analysisDate": {
+          "type": "string",
+          "description": "Date and time when the analysis was performed.",
+          "format": "date-time"
+        },
+        "geminiAnalysis": {
+          "type": "string",
+          "description": "The text analysis provided by the Google Gemini API."
+        },
+        "step1Data": {
+          "type": "string",
+          "description": "JSON stringified data for Step 1 of the analysis"
+        },
+        "step2Data": {
+          "type": "string",
+          "description": "JSON stringified data for Step 2 of the analysis"
+        }
+      },
+      "required": [
+        "id",
+        "profiId",
+        "horseId",
+        "analysisDate"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/profis/{profiId}",
+        "definition": {
+          "entityName": "Profi",
+          "schema": {
+            "$ref": "#/backend/entities/Profi"
+          },
+          "description": "Stores Profi (Hufbearbeiter) profile information. Top-level collection for each Profi.",
+          "params": [
+            {
+              "name": "profiId",
+              "description": "The unique identifier of the Profi (Hufbearbeiter)."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/profis/{profiId}/customers/{customerId}",
+        "definition": {
+          "entityName": "Customer",
+          "schema": {
+            "$ref": "#/backend/entities/Customer"
+          },
+          "description": "Stores customer (Pferdebesitzer) data. Owned by a Profi. Includes 'profiId' for authorization independence.",
+          "params": [
+            {
+              "name": "profiId",
+              "description": "The unique identifier of the Profi (Hufbearbeiter) who manages this customer."
+            },
+            {
+              "name": "customerId",
+              "description": "The unique identifier of the customer."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/profis/{profiId}/customers/{customerId}/horses/{horseId}",
+        "definition": {
+          "entityName": "Horse",
+          "schema": {
+            "$ref": "#/backend/entities/Horse"
+          },
+          "description": "Stores horse data. Owned by a Customer, managed by a Profi. Includes 'profiId' and 'customerId' for authorization independence.",
+          "params": [
+            {
+              "name": "profiId",
+              "description": "The unique identifier of the Profi (Hufbearbeiter) who manages this horse."
+            },
+            {
+              "name": "customerId",
+              "description": "The unique identifier of the customer who owns this horse."
+            },
+            {
+              "name": "horseId",
+              "description": "The unique identifier of the horse."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/profis/{profiId}/partners/{partnerId}",
+        "definition": {
+          "entityName": "Partner",
+          "schema": {
+            "$ref": "#/backend/entities/Partner"
+          },
+          "description": "Stores partner (Tierarzt, Schmied) data. Owned by a Profi. Includes 'profiId' for authorization independence.",
+          "params": [
+            {
+              "name": "profiId",
+              "description": "The unique identifier of the Profi (Hufbearbeiter) who created this partner record."
+            },
+            {
+              "name": "partnerId",
+              "description": "The unique identifier of the partner."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/profis/{profiId}/appointments/{appointmentId}",
+        "definition": {
+          "entityName": "Appointment",
+          "schema": {
+            "$ref": "#/backend/entities/Appointment"
+          },
+          "description": "Stores appointment data. Owned by a Profi. Includes 'profiId' for authorization independence.",
+          "params": [
+            {
+              "name": "profiId",
+              "description": "The unique identifier of the Profi (Hufbearbeiter) who is assigned to this appointment."
+            },
+            {
+              "name": "appointmentId",
+              "description": "The unique identifier of the appointment."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/profis/{profiId}/customers/{customerId}/horses/{horseId}/consents/{consentId}",
+        "definition": {
+          "entityName": "Consent",
+          "schema": {
+            "$ref": "#/backend/entities/Consent"
+          },
+          "description": "Stores consent records for sharing horse data with partners. Controlled by the customer. Includes 'profiId', 'customerId', and 'horseId' for authorization independence.",
+          "params": [
+            {
+              "name": "profiId",
+              "description": "The unique identifier of the Profi (Hufbearbeiter) who requested the consent."
+            },
+            {
+              "name": "customerId",
+              "description": "The unique identifier of the customer who owns the horse."
+            },
+            {
+              "name": "horseId",
+              "description": "The unique identifier of the horse for which consent is granted."
+            },
+            {
+              "name": "consentId",
+              "description": "The unique identifier of the consent record."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/profis/{profiId}/horses/{horseId}/hoofAnalyses/{hoofAnalysisId}",
+        "definition": {
+          "entityName": "HoofAnalysis",
+          "schema": {
+            "$ref": "#/backend/entities/HoofAnalysis"
+          },
+          "description": "Stores hoof analysis records. Owned by a Profi, related to a Horse. Includes 'profiId' and 'horseId' for authorization independence.",
+          "params": [
+            {
+              "name": "profiId",
+              "description": "The unique identifier of the Profi (Hufbearbeiter) who performed the analysis."
+            },
+            {
+              "name": "horseId",
+              "description": "The unique identifier of the horse for which the analysis was performed."
+            },
+            {
+              "name": "hoofAnalysisId",
+              "description": "The unique identifier for the hoof analysis record."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to ensure data isolation and secure access control. Each Profi (Hufbearbeiter) has their own top-level collection for Customers, Horses, Partners and Appointments. This design achieves Authorization Independence by avoiding `get()` calls in security rules. Access control is enforced at the collection level, ensuring that one Profi cannot access another's data. Data for each Profi is segregated under their `profiId`, ensuring that list operations are secure (QAPs).  The `Consents` subcollection ensures data sharing with Partners is controlled by the Customer. The structure is optimized for a 1:N relationship between `Profi` and `Customer`, `Profi` and `Horse`, `Customer` and `Horse`, and `Profi` and `Appointment`."
+  }
+}
