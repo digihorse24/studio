@@ -1,10 +1,10 @@
 import { PageHeader } from '@/components/page-header';
 import { AnalysisProvider } from './context/analysis-context';
 import { AnalysisWizard } from './components/analysis-wizard';
-import api from '@/lib/api';
+import { mockPferde } from '@/lib/data';
 
 export default async function NewAnalysisPage() {
-    const pferde = await api.getPferde();
+    const pferde = mockPferde;
 
     return (
         <AnalysisProvider>

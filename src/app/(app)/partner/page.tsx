@@ -2,13 +2,13 @@ import { PageHeader } from '@/components/page-header';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
-import api from '@/lib/api';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Handshake } from 'lucide-react';
+import { mockPartner } from '@/lib/data';
 
 export default async function PartnerPage() {
-    const partner = await api.getPartner();
+    const partner = mockPartner;
 
     return (
         <>

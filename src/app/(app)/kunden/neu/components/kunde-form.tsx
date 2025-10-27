@@ -44,7 +44,7 @@ export function KundeForm() {
               description: `${values.name} wurde zu Ihren Kunden hinzugefügt. (In dieser Demo wird der Kunde nicht dauerhaft gespeichert.)`,
             });
             router.push('/kunden');
-            router.refresh(); // Important to see changes with the mock API
+            router.refresh();
         } else {
              throw new Error("Server action failed");
         }

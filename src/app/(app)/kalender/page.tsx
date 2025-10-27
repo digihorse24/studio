@@ -1,11 +1,11 @@
 import { PageHeader } from '@/components/page-header';
-import api from '@/lib/api';
 import { CalendarClient } from './components/calendar-client';
+import { mockTermine, mockKunden, mockPferde } from '@/lib/data';
 
 export default async function KalenderPage() {
-    const termine = await api.getTermine();
-    const kunden = await api.getKunden();
-    const pferde = await api.getPferde();
+    const termine = mockTermine;
+    const kunden = mockKunden;
+    const pferde = mockPferde;
 
     const events = termine.map(termin => {
         const kunde = kunden.find(k => k.id === termin.kunde_id);

@@ -2,15 +2,36 @@ import { PageHeader } from '@/components/page-header';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
-import api from '@/lib/api';
 import { DataTable } from '@/components/data-table';
 import { columns } from './components/columns';
 import { Card, CardContent } from '@/components/ui/card';
+import { Kunde } from '@/lib/types';
+import { generateKid } from '@/lib/ids';
+
+// Move mock data directly into the component to ensure stability during build
+const kundenData: Kunde[] = [
+  {
+    id: 'kunde-1',
+    kid: generateKid(),
+    name: 'Erika Mustermann',
+    email: 'erika.mustermann@example.com',
+    phone: '0123 456789',
+    address: 'Musterstraße 1, 12345 Musterstadt',
+    pferde_ids: ['pferd-1', 'pferd-2'],
+  },
+  {
+    id: 'kunde-2',
+    kid: generateKid(),
+    name: 'Max Power',
+    email: 'max.power@example.com',
+    phone: '0987 654321',
+    address: 'Powerweg 10, 54321 Kraftort',
+    pferde_ids: ['pferd-3'],
+  },
+];
 
 export default async function KundenPage() {
-    const kundenData = await api.getKunden();
-    // Defensive check to ensure kunden is always an array
-    const kunden = Array.isArray(kundenData) ? kundenData : [];
+    const kunden = kundenData;
 
     return (
         <>

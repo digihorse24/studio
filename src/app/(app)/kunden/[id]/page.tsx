@@ -1,5 +1,4 @@
 import { PageHeader } from '@/components/page-header';
-import api from '@/lib/api';
 import { notFound } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -11,9 +10,14 @@ import { Plus, User, Mail, Phone, Home, Users, ShieldCheck } from 'lucide-react'
 import { Badge } from '@/components/ui/badge';
 import { format, parseISO } from 'date-fns';
 import { HorseshoeIcon } from '@/components/logo';
+import { mockKunden, mockPferde, mockPartner, mockConsents } from '@/lib/data';
+
 
 async function HorseList({ kundeId }: { kundeId: string }) {
-    const pferde = await api.getPferdeByKunde(kundeId);
+    const kunde = mockKunden.find(k => k.id === kundeId);
+    if (!kunde) return null;
+    const pferde = mockPferde.filter(p => kunde.pferde_ids.includes(p.id));
+
     return (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {pferde.map(pferd => (
@@ -41,7 +45,7 @@ async function HorseList({ kundeId }: { kundeId: string }) {
 }
 
 async function PartnerList() {
-    const partners = await api.getPartner();
+    const partners = mockPartner;
     return (
          <div className="grid gap-4 md:grid-cols-2">
             {partners.map(partner => (
@@ -62,9 +66,9 @@ async function PartnerList() {
 }
 
 async function ConsentManager({ kundeId }: { kundeId: string }) {
-    const consents = await api.getConsentsByKunde(kundeId);
-    const pferde = await api.getPferde();
-    const partners = await api.getPartner();
+    const consents = mockConsents.filter(c => c.kunde_id === kundeId);
+    const pferde = mockPferde;
+    const partners = mockPartner;
     
     const statusColors: { [key: string]: string } = {
         pending: 'bg-yellow-100 text-yellow-800',
@@ -109,7 +113,7 @@ async function ConsentManager({ kundeId }: { kundeId: string }) {
 }
 
 export default async function KundeDetailPage({ params }: { params: { id: string } }) {
-    const kunde = await api.getKunde(params.id);
+    const kunde = mockKunden.find(k => k.id === params.id);
 
     if (!kunde) {
         notFound();

@@ -4,16 +4,16 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Clock, AlertTriangle, ArrowRight, Plus, User, Calendar, ClipboardCheck } from 'lucide-react';
 import Link from 'next/link';
-import api from '@/lib/api';
 import { format } from 'date-fns';
 import { HorseshoeIcon } from '@/components/logo';
 import { Handshake } from 'lucide-react';
+import { mockTermine, mockKunden, mockPferde } from '@/lib/data';
 
 export default async function DashboardPage() {
     const today = format(new Date(), 'yyyy-MM-dd');
-    const allTermine = await api.getTermine();
-    const allKunden = await api.getKunden();
-    const allPferde = await api.getPferde();
+    const allTermine = mockTermine;
+    const allKunden = mockKunden;
+    const allPferde = mockPferde;
     
     const todaysAppointments = allTermine.filter(t => t.date === today && t.status === 'geplant');
     

@@ -2,14 +2,15 @@ import { PageHeader } from '@/components/page-header';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
-import api from '@/lib/api';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { Kunde, Pferd } from '@/lib/types';
+import { mockKunden, mockPferde } from '@/lib/data';
 
 export default async function PferdePage() {
-    const pferde = await api.getPferde();
-    const kunden = await api.getKunden();
+    const pferde = mockPferde;
+    const kunden = mockKunden;
 
     return (
         <>
